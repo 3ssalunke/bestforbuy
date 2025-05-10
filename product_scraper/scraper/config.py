@@ -40,7 +40,7 @@ AMAZON = {
     "base_url": "https://www.amazon.in",
     "search_url_template": "https://www.amazon.in/s?k={product_type}&page={page_number}",
     "timeout": 10000,
-    "max_pages_to_scrape": 1,
+    "max_pages_to_scrape": 5,
     "locators": {
         "product_block": "[role=\"listitem\"] div.s-card-container",
         "name": "h2 span",
