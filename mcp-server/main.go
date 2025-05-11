@@ -79,7 +79,8 @@ type Product struct {
 	Name        string
 	Price       float64
 	Description string
-	URL         string
+	ImageUrl    string
+	ProductUrl  string
 }
 
 func fetchProducts(db *sql.DB, productType string, minPrice, maxPrice float64, limit *int64) ([]Product, error) {
@@ -87,7 +88,7 @@ func fetchProducts(db *sql.DB, productType string, minPrice, maxPrice float64, l
 	var err error
 
 	baseQuery := `
-        SELECT product_name, product_price, product_description, product_url
+        SELECT product_name, product_price, product_description, product_image_url, product_url
         FROM product_data
         WHERE product_type = $1 AND product_price BETWEEN $2 AND $3
         ORDER BY product_price ASC
@@ -108,7 +109,7 @@ func fetchProducts(db *sql.DB, productType string, minPrice, maxPrice float64, l
 	var products []Product
 	for rows.Next() {
 		var p Product
-		if err := rows.Scan(&p.Name, &p.Price, &p.Description, &p.URL); err != nil {
+		if err := rows.Scan(&p.Name, &p.Price, &p.Description, &p.ImageUrl, &p.ProductUrl); err != nil {
 			return nil, err
 		}
 		products = append(products, p)
