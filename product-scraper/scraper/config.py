@@ -20,7 +20,7 @@ FLIPKART = {
     "base_url": "https://www.flipkart.com",
     "search_url_template": "https://www.flipkart.com/search?q={product_type}&page={page_number}",
     "timeout": 10000,
-    "max_pages_to_scrape": 5,
+    "max_pages_to_scrape": 10,
     "locators": {
         "pagination": "div._1G0WLw > span",
         "product_block": "div._75nlfW",
@@ -40,7 +40,7 @@ AMAZON = {
     "base_url": "https://www.amazon.in",
     "search_url_template": "https://www.amazon.in/s?k={product_type}&page={page_number}",
     "timeout": 10000,
-    "max_pages_to_scrape": 5,
+    "max_pages_to_scrape": 10,
     "locators": {
         "product_block": "[role=\"listitem\"] div.s-card-container",
         "name": "h2 span",

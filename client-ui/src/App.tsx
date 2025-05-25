@@ -4,7 +4,7 @@ import ProductList from "./components/ProductList";
 import type { TProduct } from "./components/ProductCard";
 
 const prompt = `
-  Give me 5 best {productType} in the range of {minPrice}-{maxPrice} by comaparing at least {productLimit} available. While comparing take description, user rating, reviews count into consideration.
+  Give me {productCount} best {productType} in the range of {minPrice}-{maxPrice} by comaparing at least {productCountToCompare} available. While comparing take description, user rating, reviews count into consideration.
   Give the response having following fields in nice json format - name, price, features in array of strings, image_url, product_url, user_rating. The result should be under suggesitons field.
   Please don't add any new line characters.
 `;
@@ -12,13 +12,21 @@ const prompt = `
 export default function App() {
   const [products, setProducts] = useState<TProduct[]>([]);
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = async (
+    query: string,
+    minPrice: string,
+    maxPrice: string,
+    count: string
+  ) => {
+    const productCountToCompare = (Number(count) * 3).toString();
+
     const reqPayload = {
       query: prompt
         .replace("{productType}", query)
-        .replace("{minPrice}", "10000")
-        .replace("{maxPrice}", "30000")
-        .replace("{productLimit}", "30"),
+        .replace("{minPrice}", minPrice)
+        .replace("{maxPrice}", maxPrice)
+        .replace("{productCount}", count)
+        .replace("{productCountToCompare}", productCountToCompare),
     };
 
     const response = await fetch("http://localhost:3000/product/search", {
@@ -36,7 +44,7 @@ export default function App() {
 
   return (
     <div className="max-w-5xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Find Your Ideal Product</h1>
+      <h1 className="text-3xl font-bold mb-6">Buy AI Suggested Best Product</h1>
       <SearchBar onSearch={handleSearch} />
       <ProductList products={products} />
     </div>
